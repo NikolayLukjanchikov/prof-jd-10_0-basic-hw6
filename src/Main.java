@@ -3,13 +3,14 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
+
         int[] arr = generateRandomArray();      //генерируем массив для всех последующих задач
         //### Задание 1
         //Первым делом бухгалтеры попросили посчитать сумму всех выплат за месяц.
         //Нужно написать программу, которая решит эту задачу, и вывести в консоль результат
         //в формате: «Сумма трат за месяц составила … рублей».
         System.out.println("Задание 1");
-        int summa = 0;      //перменная куда записываем сумму
+        int summa = 0;      //инициализируем перменную куда записываем сумму
         for (int element : arr) {        //суммируем все элементы массива
             summa += element;
         }
@@ -20,13 +21,12 @@ public class Main {
         //Нужно написать программу, которая решит эту задачу, и вывести в консоль результат
         //в формате: «Минимальная сумма трат за день составила … рублей. Максимальная сумма трат за день составила … рублей».
         System.out.println("Задание 2");
-        int minDaySumma = 200000;     //начальная минимальная сумма
-        int maxDaySumma = -1;        //начальная максимальная сумма
-        for (int i = 0; i < arr.length; i++) {
+        int minDaySumma = arr[0];     //начальная минимальная сумма принимаем первое значение массива
+        int maxDaySumma = arr[0];        //начальная максимальная сумма также первое значение массива
+        for (int i = 1; i < arr.length; i++) {
             if (arr[i] > maxDaySumma) {
                 maxDaySumma = arr[i];
-            }
-            if (arr[i] < minDaySumma) {
+            } else if (minDaySumma > arr[i]) {
                 minDaySumma = arr[i];
             }
         }
@@ -39,7 +39,8 @@ public class Main {
         // и вывести в консоль результат в формате: «Средняя сумма трат за месяц составила … рублей».
         //**Важно помнить:** подсчет среднего значения может иметь остаток (то есть быть не целым, а дробным числом).
         System.out.println("Задание 3");
-        int avgSumma = (int) summa/30;;       //переменная для среднего
+        int daysToCount = arr.length;       //количество дней для расчёта средней суммы
+        int avgSumma = (int) summa/daysToCount;      //переменная для среднего
         System.out.println("Средняя сумма трат за месяц составила " + avgSumma + " рублей");
 
         //### Задание 4
@@ -56,6 +57,8 @@ public class Main {
         for (int i = reverseFullName.length-1; i > -1 ; i--) {      //перебираем массив с последнего до первого элемента
             System.out.print(reverseFullName[i]);
         }
+        Task5();
+        Task6();
     }
 
     public static int[] generateRandomArray() {
@@ -65,5 +68,34 @@ public class Main {
             arr[i] = random.nextInt(100_000) + 100_000;
         }
         return arr;
+    }
+    //доп задачи из Slack
+    public static void Task5() {
+//Создайте матрицу 3х3 (двумерный массив типа int). Заполните единицами обе диагонали матрицы и напечатайте ее в консоль.
+// Постарайтесь заполнить обе диагонали в одном цикле.
+//Для печати следует использовать следующий код:
+//for (int[] row : matrix) {
+//	for (int column : row) {
+//		System.out.print(column + " ");
+//	}
+//	System.out.println();
+//}
+        System.out.println("Задание 5");
+        int[][] matrix = new int[3][3];     //инициализируем двумерный массив 3*3
+        int numberForFillIn = 1;        //переменная, которой будем заполнять массив
+        for (int i = 0; i < matrix.length; i++) {
+            matrix[i][i] = numberForFillIn;       //заполняем ячейки по "прямой" диагонали
+            matrix[i][matrix.length-1 - i] = numberForFillIn;   //заполняем ячейки по "обратной" диагонали (данный способ подходит для квадратных матриц)
+        }
+        for (int[] row : matrix) {
+            for (int column : row) {
+		    System.out.print(column + " ");
+	}
+	System.out.println();
+        }
+    }
+
+    public static void Task6() {
+
     }
 }
